@@ -4,10 +4,19 @@
         <div class="component-user">
             <Users></Users>
         </div>
-        <div class="component-mesage">
-            <!-- <Chat></Chat> -->
+        <!-- <div class="component-mesage">
             <Message></Message>
+        </div> -->
+    </div>
+
+    <div class="form-chat">
+        <!-- <h1>Form chat</h1> -->
+        <div class="component-user">
+            <Users></Users>
         </div>
+        <!-- <div class="component-mesage">
+            <Message></Message>
+        </div> -->
     </div>
 
 </template>
@@ -32,7 +41,7 @@ export default {
 }
 </script>
 <style>
-.form-chat {
+/* .form-chat {
     display: grid;
     grid-template-columns: 50% 50%; 
     
@@ -42,5 +51,5 @@ export default {
 }
 .component-message {
     flex: 5;
-}
+} */
 </style>

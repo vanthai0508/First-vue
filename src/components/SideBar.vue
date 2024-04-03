@@ -2,13 +2,9 @@
     <!-- <div class="avatar-container">
                 <img src="https://wallpapers.com/images/hd/itachi-face-qr35e5607yi63950.jpg" alt="Avatar" class="avatar">
             </div> -->
-    <div id="app">
         <div class="side">
-            
             <sidebar-menu :menu="menu" width="190px" class="menu" />
         </div>
-        <!-- <HelloWorld/> -->
-    </div>
 </template>
 
 <script>
@@ -93,9 +89,5 @@ export default {
 }
 
 /* Font Awesome Icons */
-.fa-envelope:before {
-    content: "\f0e0";
-    /* Unicode của icon thư (envelope) */
-    margin-right: 5px;
-}
+
 </style>

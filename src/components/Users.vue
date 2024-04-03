@@ -40,7 +40,7 @@ export default {
     /* flex: 2; */
     max-height: 100%;
     height: 800px;
-    overflow: scroll;
-    width: 600px;
+    /* width: 600px; */
+    /* khong set cung thay bang % de tu co */
 }
 </style>

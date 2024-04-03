@@ -53,24 +53,26 @@ export default {
   /* background-color: aqua  ; */
 /* } */
 .primary {
-  padding-left: 0px;
+  /* padding-left: 0px;
   background-image: linear-gradient(to right bottom, #ffa400, #e74c3c);
   height: 100vh;
   width: 140vh;
   padding: 50px;
   display: grid;
   grid-template-columns: 25% 75%; 
-  background-color: aqua;
+  background-color: aqua; */
+  display: flex;
 }
 
 .side-bar {
-  /* flex: 5; */
     background-color: #746969;
+    width: 119px;
 }
 .form-chat-view {
   /* flex: 8; */
     background-color: #a59e9e;
     /* height: 10px; */
+  width: 100%
 }
 
 </style>
