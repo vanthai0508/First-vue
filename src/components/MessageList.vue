@@ -1,89 +1,116 @@
 <template>
-    <div class="feed" ref="feed">
-        <ul >
-            <!-- <li v-for="message in messages" :class="`message${message.to == contact.id ? ' received' : ' sent'}`" :key="message.id">
-                <div class="text">
-                    {{ message.text }}
+
+    <div class="messages" id="messagess">
+        <ul>
+            <li v-for="(message, index) in messages" :key="index">
+                <div v-if="message.from === 1" class="message-align-left">
+                    <p>{{ message.content }}</p>
                 </div>
-            </li> -->
-            <li>thai</li>
-            <div class="text">
-                    <!-- {{ message.text }} -->thai test
+                <div v-else class="message-align-right">
+                    <p>{{ message.content }}</p>
                 </div>
-            <li>huy</li>
+            </li>
         </ul>
     </div>
 </template>
- 
+
 <script>
-    export default {
-        // props: {
-        //     contact: {
-        //         type: Object
-        //     },
-        //     messages: {
-        //         type: Array,
-        //         required: true
-        //     }
-        // },
-        // methods: {
-        //     scrollToBottom() {
-        //         setTimeout(() => {
-        //             this.$refs.feed.scrollTop = this.$refs.feed.scrollHeight - this.$refs.feed.clientHeight;
-        //         }, 50);
-        //     }
-        // },
-        // watch: {
-        //     contact(contact) {
-        //         this.scrollToBottom();
-        //     },
-        //     messages(messages) {
-        //         this.scrollToBottom();
-        //     }
-        // }
-    }
-</script>
- 
-<style lang="scss" scoped>
-.feed {
-    background: #f0f0f0;
-    height: 100%;
-    max-height: 470px;
-    overflow: scroll;   
- 
-    ul {
-        list-style-type: none;
-        padding: 5px;
- 
-        li {
-            &.message {
-                margin: 10px 0;
-                width: 100%;
- 
-                .text {
-                    max-width: 200px;
-                    border-radius: 5px;
-                    padding: 12px;
-                    display: inline-block;
-                }
- 
-                &.received {
-                    text-align: right;
- 
-                    .text {
-                        background: #b2b2b2;
-                    }
-                }
- 
-                &.sent {
-                    text-align: left;
- 
-                    .text {
-                        background: #81c4f9;
-                    }
-                }
-            }
+import { ref, reactive } from 'vue';
+import {  onMounted } from 'vue';
+export default {
+
+    setup() {
+        const messages = reactive([
+            { from: 1, content: "th fjsa nfsj nsf asfas fsafn", to: 2 },
+            { from: 2, content: "th fjsa nfsj nsf asfas fsafn", to: 1 },
+            { from: 2, content: "th fjsa nfsj nsf asfas fsafn", to: 1 },
+            { from: 2, content: "th fjsa nfsj nsf asfas fsafn", to: 1 },
+            { from: 1, content: "th fjsa nfsj nsf asfas fsafn", to: 2 },
+            { from: 1, content: "th fjsa nfsj nsf asfas fsafn", to: 2 },
+            { from: 2, content: "th fjsa nfsj nsf asfas fsafn", to: 1 },
+            { from: 1, content: "th fjsa nfsj nsf asfas fsafn", to: 2 },
+            { from: 2, content: "th fjsa nfsj nsf asfas fsafn", to: 1 },
+        ]);
+
+        const scroll = () => {
+            var element = document.getElementById("messagess");
+            element.scrollTop = element.scrollHeight;
         }
+        // scroll();
+
+        onMounted(scroll);
+
+        return { messages, scroll }
     }
+
+    
+
+
 }
+</script>
+
+<style>
+.messages {
+    background-color: white;
+    width: 95%;
+    padding-bottom: 1%;
+    padding-left: 4%;
+    font-size: 18px;
+    font-family: 'Noto Sans';
+    height: 400px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.messages::-webkit-scrollbar {
+    width: 5px;
+    /* Độ rộng của thanh cuộn */
+    background-color: #E6ECFE;
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background-color: #B7BDCB;
+    border-radius: 6px;
+}
+
+.messages ul li {
+    padding-top: 15px;
+    /* padding-left: 40%; */
+    /* text-align: right; */
+}
+
+/* .message {
+    background-color: #2A8BF2;
+    max-width: 60%;
+} */
+
+.message-align-left {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 2%;
+    text-align: left;
+    justify-content: flex-start;
+    background-color: #2A8BF2;
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 0px 20px 20px 20px;
+    max-width: 60%;
+}
+
+.message-align-right {
+    padding-top: 0.03px;
+    padding-bottom: 1px;
+    padding-right: 2%;
+    /* padding-left: 40%; */
+    text-align: right;
+    background-color: white;
+    /* max-width: 60%; */
+    /* justify-content: flex-end; */
+    align-self: flex-end;
+    margin-right: auto;
+}
+
+/* .message-align-right p {
+    background-color: white;
+} */
 </style>

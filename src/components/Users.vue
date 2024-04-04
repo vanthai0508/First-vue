@@ -114,7 +114,7 @@ export default {
 }
 
 .list-user::-webkit-scrollbar {
-      width: 12px; /* Độ rộng của thanh cuộn */
+      width: 5px; /* Độ rộng của thanh cuộn */
       background-color: #E6ECFE;
     }
 .list-user::-webkit-scrollbar-thumb {

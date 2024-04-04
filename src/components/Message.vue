@@ -10,7 +10,7 @@
                 </div>
                 <div class="actions">
                     <img :src="icons.iconFile" class="image-actions">
-                    <img :src="icons.iconFile" class="image-actions">
+                    <img :src="icons.iconMenu" class="image-actions">
                 </div>
             </div>
         </div>
@@ -41,7 +41,8 @@ export default {
         );
         const icons = reactive(
             {
-                iconFile: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9qfPfkOGALxXgiMXdZQNW9HKFMwcwrQ0X9MZ1OKdDpw&s"
+                iconFile: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9qfPfkOGALxXgiMXdZQNW9HKFMwcwrQ0X9MZ1OKdDpw&s",
+                iconMenu: "https://media.istockphoto.com/id/1410044937/vi/vec-to/menu-ba-ch%E1%BA%A5m-d%E1%BB%8Dc-bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-giao-di%E1%BB%87n-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-glyph-m%C3%A0u-%C4%91en.jpg?s=170667a&w=0&k=20&c=D0STid-FmQ5MnuWGjDpOCETSl2J2QhwKfREwiCBkFt8="
             }
         )
 
@@ -109,5 +110,9 @@ export default {
 }
 .info-message {
     color: #2A8BF2;
+}
+
+.components-form-message {
+    padding-top: 5px;
 }
 </style>
