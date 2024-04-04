@@ -9,10 +9,10 @@
 
 <script>
 //   import HelloWorld from "./components/HelloWorld";
-import { SidebarMenu } from "vue-sidebar-menu";
-import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
-import '@fortawesome/fontawesome-free/css/all.css'
-import '@fortawesome/fontawesome-free/js/all.js'
+// import { SidebarMenu } from "vue-sidebar-menu";
+// import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
+// import '@fortawesome/fontawesome-free/css/all.css'
+// import '@fortawesome/fontawesome-free/js/all.js'
 
 
 export default {

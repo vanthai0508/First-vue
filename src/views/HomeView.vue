@@ -5,7 +5,7 @@
 
     <div class="primary">
       <div class="side-bar">
-        <SideBar></SideBar>
+        <SideBar2></SideBar2>
       </div>
       <div class="form-chat-view">
         <Chat></Chat>
@@ -20,7 +20,7 @@
 <script>
 
 import TheWelcome from '../components/TheWelcome.vue'
-import SideBar from '@/components/SideBar.vue';
+import SideBar2 from '@/components/SideBar2.vue';
 import Chat from '../components/Chat.vue'
 // import Users from '../components/Users.vue'
 
@@ -28,7 +28,7 @@ export default {
   components: {
     Chat,
     // Users,
-    SideBar
+    SideBar2
   },
   setup() {
 
@@ -66,11 +66,11 @@ export default {
 
 .side-bar {
     background-color: #746969;
-    width: 119px;
+    width: 230px;
 }
 .form-chat-view {
   /* flex: 8; */
-    background-color: #a59e9e;
+    background-color: #E6ECFE;
     /* height: 10px; */
   width: 100%
 }
