@@ -41,15 +41,6 @@ export default {
 .component-user {
     padding: 30px;
 }
-/* .form-chat {
-    display: grid;
-    grid-template-columns: 50% 50%; 
-    
-}
-.component-user {
-    flex: 5;
-}
-.component-message {
-    flex: 5;
-} */
+
+
 </style>

@@ -16,7 +16,11 @@
         </div>
         <div class="components-form-message ">
             <MessageList></MessageList>
+        </div>
+        <div class="message-input-component">
+            
             <MessageInput></MessageInput>
+
         </div>
     </div>
 
@@ -58,11 +62,16 @@ export default {
 }
 </script>
 <style>
+/* .components-form-message, .message-input-component{
+    position: absolute;
+} */
+
+.message-input-component {
+    /* padding-top: 20%; */
+}
 .image-message {
     width: 50px;
-    /* Độ rộng của hình ảnh */
     height: 50px;
-    /* Chiều cao của hình ảnh */
     border-radius: 50%;
 }
 
@@ -83,13 +92,10 @@ export default {
 
 .actions{
     position: absolute;
-  right: 5%;
+  right: 10%;
   display: flex;
-    /* text-align: right; */
 }
-/* .actions img {
-    padding-left: 10%;
-} */
+
 .div-name-message {
     margin-left: 5%;
     display: grid;
@@ -98,12 +104,12 @@ export default {
 
 .info-user-message {
     background-color: white;
-    width: 95%;
     padding-top: 1%;
     padding-bottom: 1%;
     padding-left: 4%;
     font-size: 18px;
     font-family: 'Noto Sans';
+    
 }
 .name-user-message {
     font-weight: bold;
@@ -114,5 +120,9 @@ export default {
 
 .components-form-message {
     padding-top: 5px;
+}
+
+.form-message {
+    padding-right: 10%;
 }
 </style>
