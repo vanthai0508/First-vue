@@ -42,9 +42,9 @@ export default {
             element.scrollTop = element.scrollHeight;
         }
 
-        // onMounted(
-        //     scroll
-        // );
+        onMounted(
+            scroll
+        );
 
         return { messages, scroll }
     }

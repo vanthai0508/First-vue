@@ -50,13 +50,13 @@
     padding: 0;
   }
   
-  li {
+  .sidebar ul li {
     padding-top: 40px;
     /* pa */
     
   }
 
-  a {
+  .sidebar ul li a {
     text-decoration: none;
     color: #555252;
     

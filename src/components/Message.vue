@@ -14,13 +14,15 @@
                 </div>
             </div>
         </div>
-        <div class="components-form-message ">
-            <MessageList></MessageList>
-        </div>
-        <div class="message-input-component">
-            
-            <MessageInput></MessageInput>
+        <div class="components-absolute">
+            <div class="components-form-message ">
+                <MessageList></MessageList>
+            </div>
+            <div class="message-input-component">
 
+                <MessageInput></MessageInput>
+
+            </div>
         </div>
     </div>
 
@@ -69,6 +71,7 @@ export default {
 .message-input-component {
     /* padding-top: 20%; */
 }
+
 .image-message {
     width: 50px;
     height: 50px;
@@ -83,17 +86,19 @@ export default {
     /* Chiều cao của hình ảnh */
     border-radius: 50%;
     padding: 10%;
+    /* padding-right: 40%; */
 }
 
 .info-basic-message {
-    display: flex   ;
+    display: flex;
     margin: 15px;
 }
 
-.actions{
-    position: absolute;
-  right: 10%;
-  display: flex;
+.actions {
+    /* position: absolute; */
+    padding-right: 10%;
+    padding-left: 50%;
+    display: flex;
 }
 
 .div-name-message {
@@ -109,20 +114,40 @@ export default {
     padding-left: 4%;
     font-size: 18px;
     font-family: 'Noto Sans';
-    
+
 }
+
 .name-user-message {
     font-weight: bold;
 }
+
 .info-message {
     color: #2A8BF2;
 }
 
 .components-form-message {
     padding-top: 5px;
+    /* position: absolute; */
+    /* padding-right: 45px; */
+    
 }
 
 .form-message {
     padding-right: 10%;
+    
+}
+
+.message-input-component {
+    position: absolute;
+    width: 100%;
+  height: 100%;
+  /* left: 30px; */
+  top: 80%;
+    /* padding-top: 45%; */
+}
+
+.components-absolute {
+    position: relative;
+    
 }
 </style>
