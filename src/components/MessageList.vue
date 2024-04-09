@@ -4,12 +4,12 @@
         <ul>
             <div class="content-message">
                 <li v-for="(message, index) in messages" :key="index"
-                    :class="{ 'message-left': message.from === 1, 'message-right': message.from !== 1 }">
-                    <div v-if="message.from === 1" class="message-align-left">
-                        <p>{{ message.content }}</p>
+                    :class="{ 'message-left': message.from === userTo.value, 'message-right': message.from !== userTo.value }">
+                    <div v-if="message.from === userTo.value" class="message-align-left">
+                        <p>{{ message.text }}</p>
                     </div>
                     <div v-else class="message-align-right">
-                        <p>{{ message.content }}</p>
+                        <p>{{ message.text }}</p>
                     </div>
                 </li>
 
@@ -22,31 +22,48 @@
 <script>
 import { ref, reactive } from 'vue';
 import { onMounted } from 'vue';
+import ChatService from "../services/ChatService.ts"
+import { mdiEyeCheckOutline } from '@mdi/js';
 export default {
 
     setup() {
-        const messages = reactive([
-            { from: 1, content: "th fjsa nfsj nsf asfas fsafn", to: 2 },
-            { from: 2, content: "th fjsa nfsj nsf asfas fsafn", to: 1 },
-            { from: 2, content: "th fjsa nfsj nsf asfas fsafndsad dsad dsad dsa", to: 1 },
-            { from: 2, content: "th fjsa nfsj nsf asfas fsafn", to: 1 },
-            { from: 1, content: "th fjsa nfsj nsf asfas fsafn", to: 2 },
-            { from: 1, content: "th fjsa ", to: 2 },
-            { from: 2, content: "th fjsa nfsj nsf asfas fsafn", to: 1 },
-            { from: 1, content: "th fjsa nfsj nsf asfas fsafndsd dsad dsad dsad dsad", to: 2 },
-            { from: 2, content: "th fjsa nfsj nsf asfas fsafndfsd fdsf fdsf fdsf dsd dsa dsad dsad dsad dsadas dsadas", to: 1 },
-        ]);
+        const userTo = ref(5);
+        const messages = ref([] );
 
         const scroll = () => {
             var element = document.getElementById("messagess");
             element.scrollTop = element.scrollHeight;
         }
 
+        const getMessage = async () => {
+            await ChatService.getMessage(userTo.value).then(
+                response => {
+                    // console.log(response.data.data, 'first');
+                    messages.value = response.data;
+                    console.log(messages.value, 'thai');
+                }
+            ).catch(err => {
+
+            });
+        }
+
+        const listen = () => {
+            window.Echo.private('chat')
+            .listen('MessageSent', (e) => {
+                console.log('listen');
+                messages.value.push(e.message);
+                scroll();
+            });
+        }
+
+        getMessage();
+        listen();
+
         onMounted(
             scroll
         );
 
-        return { messages, scroll }
+        return { messages, scroll, userTo }
     }
 
 

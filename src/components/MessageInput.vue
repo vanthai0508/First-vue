@@ -1,8 +1,8 @@
 <template>
   <div class="upload-container">
     <UploadFile class="upload-file2"></UploadFile>
-      <input placeholder="ここにメッセージを入力してください" class="input-send">
-    <button class="but-send" >
+      <input placeholder="ここにメッセージを入力してください" v-model="message" class="input-send">
+    <button class="but-send" @click="sendMessage" >
       <svg-icon class="iconn" type="mdi" :path="icons.send" :style="{ color: 'white' }">
       </svg-icon>
     </button>
@@ -11,10 +11,10 @@
 
 <script>
 import UploadFile from "../components/UploadFile.vue"
-import { SpeedDialComponent } from "@syncfusion/ej2-vue-buttons";
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiSend, mdiSendVariant   } from '@mdi/js';
 import { ref, reactive } from 'vue';
+import ChatService from "../services/ChatService.ts"
 
 export default {
   components: {
@@ -22,13 +22,27 @@ export default {
     SvgIcon
   },
   setup() {
+        const userTo = ref(5);
+
+        const message = ref('');
         const icons = reactive(
             {
                 send: mdiSendVariant 
             }
         )
+        const sendMessage = async() => {
+          console.log(message.value, 'in');
+          const formData = new FormData();
+          formData.append('text', message.value);
+          formData.append('to', userTo.value);
+          await ChatService.send(formData).then(response => {
+            console.log(response);
+          }).catch(err => {
+            console.log(err, 'error')
+          });
+        }
 
-        return { icons }
+        return { icons, message, sendMessage }
     }
 };
 </script>
