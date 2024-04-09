@@ -1,18 +1,20 @@
 <template>
     <div class="speed-dial">
         <ul class="dials">
-            <li>
-                <a class="bg-twitter" href="#">
+                <input @change="onFileChange($event)" type="file" ref="file" style="display: none" />
+            
+            <li @click="$refs.file.click()">
+                <a class="bg-twitter"   href="#">
                     <svg-icon type="mdi" :path="icons.video" :style="{ color: 'white' }"></svg-icon>
 
                 </a>
             </li>
-            <li>
+            <li @click="$refs.file.click()">
                 <a class="bg-facebook" href="#">
                     <svg-icon type="mdi" :path="icons.image" :style="{ color: 'white' }"></svg-icon>
                 </a>
             </li>
-            <li>
+            <li @click="$refs.file.click()">
                 <a class="bg-google-plus" href="#">
                     <svg-icon type="mdi" :path="icons.file" :style="{ color: 'white' }"></svg-icon>
                 </a>
@@ -29,6 +31,7 @@ import MenuIcon from 'vue-material-design-icons/Menu.vue';
 import { ref, reactive } from 'vue';
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiImage, mdiFilmstrip, mdiFile } from '@mdi/js';
+import UploadService from "../services/UploadService.ts"
 
 export default {
     components: {
@@ -40,11 +43,34 @@ export default {
             {
                 video: mdiFilmstrip,
                 image: mdiImage,
-                file: mdiFile
+                file: mdiFile,
             }
         )
+        const file = ref(null);
+        const fileUpload = reactive({});
 
-        return { icons }
+        const onFileChange = (event) => {
+            file.value = event.target.files[0];
+            console.log('thai');
+
+            
+            uploadFile()
+        }
+
+        const uploadFile = async() => {
+            const formInput = new FormData();
+            formInput.append('files', file.value)
+            await UploadService.uploadFile(formInput)
+            .then(response => {
+                fileUpload.value = response.data.data;
+            })
+            .catch(err => {
+                console.log('err', err);
+            })
+            
+        }
+
+        return { icons, onFileChange, uploadFile }
     }
 
 
@@ -129,13 +155,8 @@ export default {
     }
 }
 
-// .toggle-bg-share {
-//     text-align: center;
-
-// }
 .bg-twitter {
     background-color: #2A8BF2;
-    // background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu4GMct-jZBBGpJLHUtO44rUbGRPLLkLHWH9Bzb2DLnw&s') 1%;
 }
 
 .bg-facebook {

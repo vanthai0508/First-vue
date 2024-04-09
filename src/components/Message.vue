@@ -85,8 +85,13 @@ export default {
     height: 40px;
     /* Chiều cao của hình ảnh */
     border-radius: 50%;
-    padding: 10%;
+    
+    box-shadow: 0px 5px #ccc;
     /* padding-right: 40%; */
+}
+
+.actions img {
+    /* padding-left: 20%; */
 }
 
 .info-basic-message {
@@ -98,6 +103,7 @@ export default {
     /* position: absolute; */
     padding-right: 10%;
     padding-left: 50%;
+    /* padding-top: 10%; */
     display: flex;
 }
 

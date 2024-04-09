@@ -66,7 +66,7 @@
     padding-left: 30px;
   }
 
-  a:hover {
+  .sidebar a:hover {
   color: #3089ce; /* Màu sẽ thay đổi khi hover vào liên kết */
   border-left-color: #3089ce;
 }

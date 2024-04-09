@@ -37,7 +37,6 @@ export default {
         const register = async () => {
             await AuthService.register(formInput)
                 .then(response => {
-                    // console.log();
                     setAccessToken(response.data.data.token);
                     router.push({path: '/login'});
                 })
