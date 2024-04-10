@@ -4,8 +4,8 @@
         <ul>
             <div class="content-message">
                 <li v-for="(message, index) in messages" :key="index"
-                    :class="{ 'message-left': message.from === userTo.value, 'message-right': message.from !== userTo.value }">
-                    <div v-if="message.from === userTo.value" class="message-align-left">
+                    :class="{ 'message-left': message.from === userTo, 'message-right': message.from !== userTo }">
+                    <div v-if="message.from === userTo" class="message-align-left">
                         <p>{{ message.text }}</p>
                     </div>
                     <div v-else class="message-align-right">
@@ -20,48 +20,57 @@
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
-import { onMounted } from 'vue';
+import { ref, reactive, watch } from 'vue';
 import ChatService from "../services/ChatService.ts"
 import { mdiEyeCheckOutline } from '@mdi/js';
-export default {
+import { getUserInfo } from "../utils/authenticate.js";
 
-    setup() {
-        const userTo = ref(5);
-        const messages = ref([] );
+export default {
+    props: {
+        user: Object
+    },
+    setup(props) {
+        const userTo = ref(0);
+        const messages = ref([]);
 
         const scroll = () => {
             var element = document.getElementById("messagess");
             element.scrollTop = element.scrollHeight;
         }
 
-        const getMessage = async () => {
-            await ChatService.getMessage(userTo.value).then(
+        const getMessage = async (to) => {
+            userTo.value = to
+            await ChatService.getMessage(to).then(
                 response => {
-                    // console.log(response.data.data, 'first');
                     messages.value = response.data;
-                    console.log(messages.value, 'thai');
                 }
             ).catch(err => {
 
             });
         }
 
+        watch(props.user, async (newValue, oldValue) => {
+            if (props.user) {
+                getMessage(props.user.value.id);
+                scroll();
+            }
+        }, { immediate: false });
+
         const listen = () => {
             window.Echo.private('chat')
-            .listen('MessageSent', (e) => {
-                console.log('listen');
-                messages.value.push(e.message);
-                scroll();
-            });
+                .listen('MessageSent', (e) => {
+                    if (
+                        (e.user.to == parseInt(getUserInfo()) && e.user.from == userTo.value)
+                        || (e.user.to == userTo.value && e.user.from == parseInt(getUserInfo()))
+                    ) {
+                        messages.value.push(e.message);
+                        scroll();
+                    }
+                    scroll();
+                });
         }
 
-        getMessage();
         listen();
-
-        onMounted(
-            scroll
-        );
 
         return { messages, scroll, userTo }
     }

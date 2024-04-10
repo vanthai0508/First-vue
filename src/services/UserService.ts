@@ -1,8 +1,13 @@
 import http from '@/common';
 
 class UserService {
-    getAll(): Promise<any> {
-        return http.get('users');
+    getAll(data: any): Promise<any> {
+        if(!data) {
+            return http.get('users');
+        }
+        else {
+            return http.get('users?name='+data);
+        }
     }
     create(data: any): Promise<any> {
         return http.post('users', data)

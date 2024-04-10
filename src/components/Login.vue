@@ -22,7 +22,7 @@
 <script>
 import AuthService from "../services/AuthService.ts"
 import { ref, reactive } from 'vue';
-import { setAccessToken } from "../utils/authenticate.js";
+import { setAccessToken, setUserInfo } from "../utils/authenticate.js";
 import { useRouter } from 'vue-router'
 
 export default {
@@ -34,9 +34,8 @@ export default {
         const login = async () => {
             await AuthService.login(formInput)
                 .then(response => {
-                    // console.log(response.data.data.token);
-                    console.log(response);
                     setAccessToken(response.data.data.token);
+                    setUserInfo(response.data.data.user.id)
                     router.push({path: '/home'});
                 })
                 .catch(err => {

@@ -3,6 +3,13 @@ export const setAccessToken = (token) => {
 }
 
 export const getAccessToken = () => {
-    // const userInfo = getUserInfo()
     return window.localStorage.getItem('token');
+}
+
+export const setUserInfo = (data) => {
+        window.localStorage.setItem('userInfo', data)
+}
+
+export const getUserInfo = () => {
+    return window.localStorage.getItem('userInfo')
 }

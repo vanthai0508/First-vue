@@ -2,10 +2,10 @@
     <div class="form-chat">
         <!-- <h1>Form chat</h1> -->
         <div class="component-user">
-            <Users></Users>
+            <Users @send-user="handleSendUser"></Users>
         </div>
         <div class="component-message">
-            <Message></Message>
+            <Message :user="user"></Message>
         </div>
     </div>
 
@@ -17,15 +17,19 @@
 // import Chat from '../components/Chat.vue'
 import Users from './Users.vue'
 import Message from './Message.vue';
+import { reactive } from 'vue';
 
 export default {
     components: {
-        // Chat,
         Users,
         Message
-        // SideBar
     },
     setup() {
+        const user = reactive({});
+        const handleSendUser = (userSend) => {
+            user.value = userSend;
+        }
+        return {handleSendUser, user}
 
     }
 
