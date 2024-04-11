@@ -38,7 +38,7 @@ export default {
         MenuIcon,
         SvgIcon
     },
-    setup() {
+    setup(_, { emit }) {
         const icons = reactive(
             {
                 video: mdiFilmstrip,
@@ -51,7 +51,7 @@ export default {
 
         const onFileChange = (event) => {
             file.value = event.target.files[0];
-            console.log('thai');
+            // console.log('thai');
 
             
             uploadFile()
@@ -60,9 +60,12 @@ export default {
         const uploadFile = async() => {
             const formInput = new FormData();
             formInput.append('files', file.value)
+            console.log('truoc')
             await UploadService.uploadFile(formInput)
             .then(response => {
                 fileUpload.value = response.data.data;
+                emit('send-file', fileUpload.value)
+                console.log('sau')
             })
             .catch(err => {
                 console.log('err', err);

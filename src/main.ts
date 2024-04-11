@@ -25,10 +25,10 @@ declare global {
 window.Pusher = Pusher;
 
 window.Echo = new Echo({
-    authEndpoint : 'http://localhost:80/broadcasting/auth',
-    broadcaster: 'pusher',
-    key: "cb060c75c67eb45bd8ab",
-    cluster: "ap3",
+    authEndpoint : import.meta.env.VITE_AUTH_ENDPOINT,
+    broadcaster: import.meta.env.VITE_BROAD_CASTER,
+    key: import.meta.env.VITE_KEY,
+    cluster: import.meta.env.VITE_CLUSTER,
     forceTLS: true,
     auth: {
         headers: {

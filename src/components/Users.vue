@@ -1,6 +1,7 @@
 <template>
     <div class="list-user">
-        <h1>User</h1>
+        <h1>チャット</h1>
+        <h2>最近のチャット</h2>
         <div class="search-container">
             <input type="text" v-model="selected" class="search" placeholder="Search..." @keyup.enter="getAll(selected)">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3751OuTtZ0Ovh-NtGF_4n_CQ6T-4u_9TA8iGd-v2EDw&s"
@@ -73,7 +74,7 @@ export default {
         watch(selected, async (newValue, oldValue) => {
             filterUser()
 
-            console.log(selected.value, 'dshajd')
+            // console.log(selected.value, 'dshajd')
             if(!selected.value) {
                 filted.value = [];
             }
@@ -92,6 +93,14 @@ export default {
 </script>
 
 <style>
+
+.list-user h2 {
+    text-align: left;
+    margin: 0 0 0 10%;
+    font-size: 20px;
+    font-family: 'Noto Sans';
+    color: #707C97;
+}
 .select {
     border:1px solid #ccc;
     width: 86.5%;
@@ -114,7 +123,9 @@ export default {
 }
 .list-user h1 {
     text-align: left;
-    margin-left: 10%;
+    margin: 0 0 0 10%;
+    font-size: 30px;
+    font-family: 'Noto Sans';
 }
 
 .contact-image {
@@ -155,26 +166,16 @@ export default {
     font-family: 'Noto Sans';
 }
 
-/* .item span {
-    padding : 50px;
-} */
 .list-user {
-    /* flex: 2; */
     max-height: 100%;
     height: 800px;
     text-align: center;
-    /* border: 3px solid black; */
-    /* border-style: outset; */
     overflow-y: scroll;
     position: relative;
-    /* padding: 12px; */
-    /* width: 600px; */
-    /* khong set cung thay bang % de tu co */
 }
 
 .list-user::-webkit-scrollbar {
     width: 5px;
-    /* Độ rộng của thanh cuộn */
     background-color: #E6ECFE;
 }
 
@@ -185,7 +186,6 @@ export default {
 
 .item {
     background-color: white;
-    /* margin: 0 auto; */
     padding-top: 7%;
     padding-bottom: 7%;
     border-radius: 10px;
@@ -200,28 +200,20 @@ export default {
 
 .items ul li {
     padding-top: 3%;
-    /* border-bottom:  solid #ccc; Border dưới */
-    /* box-shadow: 0 3px 0px rgba(0, 0, 0, 0.1);  */
 }
 
-/* .search {
-    width: 80%;
-    height: 10%;
-} */
 
 .search-container {
     position: relative;
     width: 80%;
-    margin: 0 auto;
+    margin: 5% 0 0 10%
 }
 
 .search {
     width: 90%;
     padding: 10px 10px 10px 10px;
-    /* Có khoảng trống bên phải để làm chỗ cho icon */
     font-size: 20px;
     border: 1px solid #ccc;
-    /* border-radius: 5px; */
     padding-left: 15%;
     border-radius: 10px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);

@@ -24,6 +24,7 @@ import AuthService from "../services/AuthService.ts"
 import { ref, reactive } from 'vue';
 import { setAccessToken, setUserInfo } from "../utils/authenticate.js";
 import { useRouter } from 'vue-router'
+import { mdiSleep } from "@mdi/js";
 
 export default {
     setup() {
@@ -35,15 +36,13 @@ export default {
             await AuthService.login(formInput)
                 .then(response => {
                     setAccessToken(response.data.data.token);
-                    setUserInfo(response.data.data.user.id)
+                    setUserInfo(response.data.data.user.id);
                     router.push({path: '/home'});
                 })
                 .catch(err => {
                     console.log('Error', err);
                 });
         } 
-
-        console.log('thai', 'login');
 
         return {
             formInput, login

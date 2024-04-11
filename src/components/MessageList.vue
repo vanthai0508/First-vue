@@ -6,10 +6,22 @@
                 <li v-for="(message, index) in messages" :key="index"
                     :class="{ 'message-left': message.from === userTo, 'message-right': message.from !== userTo }">
                     <div v-if="message.from === userTo" class="message-align-left">
-                        <p>{{ message.text }}</p>
+                        <p v-if="message.text" class="auto-break">{{ message.text }}</p>
+                        <div v-if="message.file" class="icon-file-left">
+                            <p >({{message.file.size}} Mb) File.{{ message.file.type }}</p>
+                            <svg-icon v-show="(message.file.type === 'video/mp4')" type="mdi" :path="icons.video"></svg-icon>
+                            <svg-icon v-show="(message.file.type === 'image/jpeg')" type="mdi" :path="icons.image"></svg-icon>
+                            <svg-icon v-show="(message.file.type !== 'video/mp4') && (message.file.type !== 'image/jpeg')" type="mdi" :path="icons.file"></svg-icon>
+                        </div>
                     </div>
                     <div v-else class="message-align-right">
-                        <p>{{ message.text }}</p>
+                        <p class="auto-break">{{ message.text }}</p>
+                        <div v-if="message.file" class="icon-file-right">
+                            <p >({{message.file.size}} Mb) File.{{ message.file.type }}</p>
+                            <svg-icon v-show="(message.file.type === 'video/mp4')" type="mdi" :path="icons.video"></svg-icon>
+                            <svg-icon v-show="(message.file.type === 'image/jpeg')" type="mdi" :path="icons.image"></svg-icon>
+                            <svg-icon v-show="(message.file.type !== 'video/mp4') && (message.file.type !== 'image/jpeg')" type="mdi" :path="icons.file"></svg-icon>
+                        </div>
                     </div>
                 </li>
 
@@ -24,10 +36,15 @@ import { ref, reactive, watch } from 'vue';
 import ChatService from "../services/ChatService.ts"
 import { mdiEyeCheckOutline } from '@mdi/js';
 import { getUserInfo } from "../utils/authenticate.js";
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiImage, mdiFilmstrip, mdiFile } from '@mdi/js';
 
 export default {
     props: {
         user: Object
+    },
+    components: {
+        SvgIcon
     },
     setup(props) {
         const userTo = ref(0);
@@ -38,11 +55,19 @@ export default {
             element.scrollTop = element.scrollHeight;
         }
 
+        const icons = reactive(
+            {
+                video: mdiFilmstrip,
+                image: mdiImage,
+                file: mdiFile,
+            }
+        )
+
         const getMessage = async (to) => {
             userTo.value = to
             await ChatService.getMessage(to).then(
                 response => {
-                    messages.value = response.data;
+                    messages.value = response.data.data;
                 }
             ).catch(err => {
 
@@ -72,7 +97,7 @@ export default {
 
         listen();
 
-        return { messages, scroll, userTo }
+        return { messages, scroll, userTo, icons }
     }
 
 
@@ -82,15 +107,34 @@ export default {
 </script>
 
 <style>
+.icon-file-right {
+    text-align: right;
+    display: flex;
+    color: #2A8BF2;
+}
+
+.icon-file-right p {
+    margin: 0;
+}
+.icon-file-left {
+    text-align: left;
+    display: flex;
+    color: #fafcfd
+}
+
+.icon-file-left p {
+    margin: 0;
+}
 .messages {
     background-color: white;
-    /* width: 95%;  */
+    width: 96.5%; 
     padding-bottom: 1%;
     padding-left: 4%;
     font-size: 18px;
     font-family: 'Noto Sans';
-    height: 450px;
+    height: 460px;
     overflow-y: scroll;
+    overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
@@ -121,6 +165,10 @@ export default {
     display: inline-block;
 }
 
+/* .message-align-left p {
+    
+} */
+
 .message-align-right {
     padding-top: 0.03px;
     padding-bottom: 1px;
@@ -128,12 +176,22 @@ export default {
     padding-right: 3%;
     text-align: left;
     background-color: white;
+    color: #707C97;
     margin-right: auto;
     position: relative;
     right: 0px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 20px 20px 0px 20px;
+}
+.auto-break {
+    word-wrap: break-word; /* Cho phép từ bị cắt ngang nếu chúng dài quá */
+    word-break: break-all;
+    margin: 0;
+    padding-bottom: 6%;
+    padding-top: 6%;
+    /* color: #707C97; */
+    font-family: 'Noto Sans';
 }
 
 .message-left {

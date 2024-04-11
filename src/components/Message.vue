@@ -1,21 +1,29 @@
 <template>
     <div class="form-message" v-show="Object.keys(props.user).length > 0">
-        <h1>Form message</h1>
         <div class="info-user-message">
             <div class="info-basic-message">
-                <img v-if="props.user.value" :src="props.user.value.image" :alt="props.user.value.name" class="image-message">
+                <img v-if="props.user.value" :src="props.user.value.image" :alt="props.user.value.name"
+                    class="image-message">
                 <div class="div-name-message">
                     <span v-if="props.user.value" class="name-user-message">{{ props.user.value.name }}</span>
                     <span v-if="props.user.value" class="info-message">{{ props.user.value.info }}</span>
                 </div>
                 <div class="actions">
-                    <img :src="icons.iconFile" class="image-actions">
-                    <img :src="icons.iconMenu" class="image-actions">
+                    <div class="padding-svg">
+                        <svg-icon @click="showListFile" class="image-actions" type="mdi" :path="icons.iconFile" width="40px" height="40px"
+                            :style="{ color: '#707C97' }"></svg-icon>
+                    </div>
+
+                    <svg-icon class="image-actions" type="mdi" :path="icons.iconMenu" width="40px" height="40px"
+                        :style="{ color: '#707C97' }"></svg-icon>
                 </div>
             </div>
         </div>
 
         <div class="components-absolute">
+            <div class="list-file-component">
+                <ListFile @close-popup="showListFile" v-show="showFiles" :user="props.user"></ListFile>
+            </div>
             <div class="components-form-message ">
                 <MessageList :user="props.user"></MessageList>
             </div>
@@ -24,6 +32,9 @@
                 <MessageInput :user="props.user"></MessageInput>
 
             </div>
+
+            
+
         </div>
     </div>
 
@@ -33,6 +44,9 @@
 import { ref, reactive } from 'vue';
 import MessageList from './MessageList.vue'
 import MessageInput from './MessageInput.vue'
+import ListFile from './ListFile.vue'
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiAttachment, mdiDotsVertical } from '@mdi/js';
 
 export default {
     props: {
@@ -41,7 +55,9 @@ export default {
     components: {
         // Chat,
         MessageList,
-        MessageInput
+        MessageInput,
+        SvgIcon,
+        ListFile
     },
     setup(props) {
         const contact = reactive(
@@ -50,19 +66,33 @@ export default {
         );
         const icons = reactive(
             {
-                iconFile: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9qfPfkOGALxXgiMXdZQNW9HKFMwcwrQ0X9MZ1OKdDpw&s",
-                iconMenu: "https://media.istockphoto.com/id/1410044937/vi/vec-to/menu-ba-ch%E1%BA%A5m-d%E1%BB%8Dc-bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-giao-di%E1%BB%87n-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-glyph-m%C3%A0u-%C4%91en.jpg?s=170667a&w=0&k=20&c=D0STid-FmQ5MnuWGjDpOCETSl2J2QhwKfREwiCBkFt8="
+                iconFile: mdiAttachment,
+                iconMenu: mdiDotsVertical
             }
         )
 
+        const showFiles = ref(false);
 
-        return { contact, icons, props };
+        const showListFile = () => {
+            showFiles.value = !showFiles.value
+        }
+
+        return { contact, icons, props, showFiles, showListFile };
     }
 
 
 }
 </script>
 <style>
+
+.list-file-component {
+    position: absolute;
+    z-index: 7;
+    padding-left: 30%;
+}
+.padding-svg {
+    padding-right: 12px;
+}
 
 .message-input-component {
     /* padding-top: 20%; */
@@ -75,14 +105,11 @@ export default {
 }
 
 .image-actions {
-    /* position: absolute; */
-    width: 40px;
-    /* Độ rộng của hình ảnh */
-    height: 40px;
     /* Chiều cao của hình ảnh */
     border-radius: 50%;
-    
-    box-shadow: 0px 5px #ccc;
+
+    box-shadow: 0px 5px 5px #ccc;
+    padding: 2px;
     /* padding-right: 40%; */
 }
 
@@ -131,25 +158,26 @@ export default {
     padding-top: 5px;
     /* position: absolute; */
     /* padding-right: 45px; */
-    
+
 }
 
 .form-message {
+    padding-top: 10%;
     padding-right: 10%;
-    
+
 }
 
 .message-input-component {
     position: absolute;
     width: 100%;
-  height: 100%;
-  /* left: 30px; */
-  top: 80%;
+    height: 100%;
+    /* left: 30px; */
+    top: 80%;
     /* padding-top: 45%; */
 }
 
 .components-absolute {
     position: relative;
-    
+
 }
 </style>

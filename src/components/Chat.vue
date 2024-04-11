@@ -43,7 +43,7 @@ export default {
     
 }
 .component-user {
-    padding: 30px;
+    padding: 10% 5% 5% 5%;
 }
 
 
