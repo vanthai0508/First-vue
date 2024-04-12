@@ -1,7 +1,7 @@
 <template>
     <div class="speed-dial">
         <ul class="dials">
-                <input @click="onFileChange($event)" type="file" ref="file" style="display: none" />
+                <input @change="onFileChange($event)" type="file" ref="file" style="display: none" />
             
             <li @click="$refs.file.click()">
                 <a class="bg-twitter"   href="#">
@@ -51,9 +51,6 @@ export default {
 
         const onFileChange = (event) => {
             file.value = event.target.files[0];
-            // console.log('thai');
-
-            
             uploadFile()
         }
 
