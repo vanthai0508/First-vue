@@ -4,7 +4,7 @@
         <input placeholder="ここにメッセージを入力してください" v-model="message" @keyup.enter="sendMessage" class="input-send">
         <div v-show="fileUpload.value && Object.keys(fileUpload.value).length > 0" class="icons-upload">
             <svg-icon @click="removeFile" class="icon-upload" width="70px" height="70px" type="mdi" :path="iconUploadAnother"
-                :style="{ color: 'blue' }">
+                :style="{ color: 'black' }">
             </svg-icon>
             <p v-if="fileUpload.value">File.{{ fileUpload.value.type }}</p>
         </div>

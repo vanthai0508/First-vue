@@ -74,7 +74,6 @@ export default {
         watch(selected, async (newValue, oldValue) => {
             filterUser()
 
-            // console.log(selected.value, 'dshajd')
             if(!selected.value) {
                 filted.value = [];
             }

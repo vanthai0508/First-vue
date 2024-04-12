@@ -1,18 +1,17 @@
 <template>
-    <!-- <div id="app"> -->
     <div class="sidebar">
+        <div class="avatar-div"></div>
         <img src="https://wallpapers.com/images/hd/itachi-face-qr35e5607yi63950.jpg" alt="Avatar" class="avatar">
         <h1>田中 太郎</h1>
         <div class="bar">
             <ul>
-            <li v-for="item in sidebarItems" :key="item.id">
-                <a :href="item.url">
-                    <!-- <img :src="item.icon" alt="icon" class="icon"> -->
-                    <svg-icon class="icon-side" type="mdi" :path="item.icon" ></svg-icon>
-                    {{ item.label }}
-                </a>
-            </li>
-        </ul>
+                <li v-for="item in sidebarItems" :key="item.id">
+                    <a :href="item.url">
+                        <svg-icon class="icon-side" type="mdi" :path="item.icon"></svg-icon>
+                        {{ item.label }}
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -20,7 +19,7 @@
 <script>
 import SvgIcon from '@jamescoyle/vue-icon';
 import { ref, reactive } from 'vue';
-import { mdiMessageMinus, mdiChat, mdiAccountOutline, mdiBellOutline, mdiLogout  } from '@mdi/js';
+import { mdiPower, mdiChat, mdiAccountOutline, mdiBellOutline, mdiLogout } from '@mdi/js';
 
 export default {
     components: {
@@ -29,9 +28,9 @@ export default {
     setup() {
         const sidebarItems = ref([
             { id: 1, label: 'チャット', url: '/', icon: mdiChat },
-            { id: 2, label: 'コンタクト', url: '/about', icon: mdiAccountOutline },
-            { id: 3, label: 'お知らせ', url: '/contact', icon: mdiBellOutline },
-            { id: 4, label: 'ログアウト', url: '/logout', icon: mdiLogout  }
+            { id: 2, label: 'コンタクト', url: '/about', icon: mdiAccountOutline},
+            { id: 3, label: 'お知らせ', url: '/contact', icon: mdiBellOutline},
+            { id: 4, label: 'ログアウト', url: '/logout', icon: mdiPower}
         ])
 
         return { sidebarItems }
@@ -40,7 +39,6 @@ export default {
 </script>
 
 <style>
-
 .icon-side {
     height: 18px;
 }
@@ -56,15 +54,14 @@ export default {
     padding-top: 0px;
     font-size: 20px;
     font-family: 'Noto Sans';
-
 }
+
 .sidebar {
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     background-color: #faf8f8;
-    padding-top: 20px;
     font-size: 20px;
     font-family: 'Noto Sans';
     display: block;
@@ -78,8 +75,10 @@ ul {
 
 .bar ul li {
     padding-top: 40px;
-    /* pa */
+}
 
+.bar ul li:nth-child(4) {
+    padding-top: 320px;
 }
 
 .bar ul li a {
@@ -102,10 +101,13 @@ ul {
 }
 
 .avatar {
-    /* padding: 40px; */
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     margin-right: 10px;
+}
+
+.avatar-div {
+    padding-top: 20%;
 }
 </style>

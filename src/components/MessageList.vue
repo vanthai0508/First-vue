@@ -188,9 +188,8 @@ export default {
     word-wrap: break-word; /* Cho phép từ bị cắt ngang nếu chúng dài quá */
     word-break: break-all;
     margin: 0;
-    padding-bottom: 6%;
-    padding-top: 6%;
-    /* color: #707C97; */
+    padding-bottom: 6px;
+    padding-top: 6px;
     font-family: 'Noto Sans';
 }
 

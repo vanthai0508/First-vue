@@ -2,7 +2,6 @@
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-// import PusherPlugin from './plugins/pusher.js'
 import Pusher from 'pusher-js';
 import Echo from 'laravel-echo';
 
@@ -14,6 +13,7 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+
 
 declare global {
     interface Window {

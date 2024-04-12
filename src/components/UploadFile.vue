@@ -1,7 +1,7 @@
 <template>
     <div class="speed-dial">
         <ul class="dials">
-                <input @change="onFileChange($event)" type="file" ref="file" style="display: none" />
+                <input @click="onFileChange($event)" type="file" ref="file" style="display: none" />
             
             <li @click="$refs.file.click()">
                 <a class="bg-twitter"   href="#">
