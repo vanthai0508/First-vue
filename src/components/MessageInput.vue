@@ -15,7 +15,7 @@
     </div>
 </template>
 
-<script>
+<script >
 import UploadFile from "../components/UploadFile.vue"
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiSend, mdiSendVariant, mdiImage, mdiFilmstrip, mdiFile } from '@mdi/js';
@@ -30,7 +30,7 @@ export default {
         UploadFile,
         SvgIcon
     },
-    setup(props) {
+    setup(props, { emit }) {
         const message = ref('');
         const iconUploadAnother = ref('');
         const icons = reactive(
@@ -54,9 +54,12 @@ export default {
             formData.append('to', props.user.value.id);
             if (fileUpload.value && Object.keys(fileUpload.value).length > 0) {
                 formData.append('file_id', fileUpload.value.id);
+                formData.append('type', fileUpload.value.type);
+                formData.append('size', fileUpload.value.size);
             } 
             message.value = '';
             removeFile();
+            emit('add-message', formData)
             await ChatService.send(formData).then(response => {
                 console.log('send success');
             }).catch(err => {

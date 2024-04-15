@@ -25,11 +25,11 @@
                 <ListFile @close-popup="showListFile" v-show="showFiles" :user="props.user"></ListFile>
             </div>
             <div class="components-form-message ">
-                <MessageList :user="props.user"></MessageList>
+                <MessageList :user="props.user" :userAdd="userAdd"></MessageList>
             </div>
             <div class="message-input-component">
 
-                <MessageInput :user="props.user"></MessageInput>
+                <MessageInput :user="props.user" @add-message="handleAddMessage"></MessageInput>
 
             </div>
 
@@ -39,8 +39,7 @@
     </div>
 
 </template>
-
-<script>
+<script >
 import { ref, reactive } from 'vue';
 import MessageList from './MessageList.vue'
 import MessageInput from './MessageInput.vue'
@@ -77,7 +76,12 @@ export default {
             showFiles.value = !showFiles.value
         }
 
-        return { contact, icons, props, showFiles, showListFile };
+        const userAdd = reactive({});
+        const handleAddMessage = (dataAdd) => {
+            userAdd.value = dataAdd;
+        }
+
+        return { contact, icons, props, showFiles, showListFile, handleAddMessage, userAdd };
     }
 
 

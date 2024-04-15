@@ -8,19 +8,27 @@
                     <div v-if="message.from === userTo" class="message-align-left">
                         <p v-if="message.text" class="auto-break">{{ message.text }}</p>
                         <div v-if="message.file" class="icon-file-left">
-                            <p >({{message.file.size}} Mb) File.{{ message.file.type }}</p>
-                            <svg-icon v-show="(message.file.type === 'video/mp4')" type="mdi" :path="icons.video"></svg-icon>
-                            <svg-icon v-show="(message.file.type === 'image/jpeg')" type="mdi" :path="icons.image"></svg-icon>
-                            <svg-icon v-show="(message.file.type !== 'video/mp4') && (message.file.type !== 'image/jpeg')" type="mdi" :path="icons.file"></svg-icon>
+                            <p>({{ message.file.size }} Mb) File.{{ message.file.type }}</p>
+                            <svg-icon v-show="(message.file.type === 'video/mp4')" type="mdi"
+                                :path="icons.video"></svg-icon>
+                            <svg-icon v-show="(message.file.type === 'image/jpeg')" type="mdi"
+                                :path="icons.image"></svg-icon>
+                            <svg-icon
+                                v-show="(message.file.type !== 'video/mp4') && (message.file.type !== 'image/jpeg')"
+                                type="mdi" :path="icons.file"></svg-icon>
                         </div>
                     </div>
                     <div v-else class="message-align-right">
                         <p class="auto-break">{{ message.text }}</p>
                         <div v-if="message.file" class="icon-file-right">
-                            <p >({{message.file.size}} Mb) File.{{ message.file.type }}</p>
-                            <svg-icon v-show="(message.file.type === 'video/mp4')" type="mdi" :path="icons.video"></svg-icon>
-                            <svg-icon v-show="(message.file.type === 'image/jpeg')" type="mdi" :path="icons.image"></svg-icon>
-                            <svg-icon v-show="(message.file.type !== 'video/mp4') && (message.file.type !== 'image/jpeg')" type="mdi" :path="icons.file"></svg-icon>
+                            <p>({{ message.file.size }} Mb) File.{{ message.file.type }}</p>
+                            <svg-icon v-show="(message.file.type === 'video/mp4')" type="mdi"
+                                :path="icons.video"></svg-icon>
+                            <svg-icon v-show="(message.file.type === 'image/jpeg')" type="mdi"
+                                :path="icons.image"></svg-icon>
+                            <svg-icon
+                                v-show="(message.file.type !== 'video/mp4') && (message.file.type !== 'image/jpeg')"
+                                type="mdi" :path="icons.file"></svg-icon>
                         </div>
                     </div>
                 </li>
@@ -38,10 +46,12 @@ import { mdiEyeCheckOutline } from '@mdi/js';
 import { getUserInfo } from "../utils/authenticate.js";
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiImage, mdiFilmstrip, mdiFile } from '@mdi/js';
+import formDataToObject from "formdata-to-object";
 
 export default {
     props: {
-        user: Object
+        user: Object,
+        userAdd: Object
     },
     components: {
         SvgIcon
@@ -81,16 +91,35 @@ export default {
             }
         }, { immediate: false });
 
+        watch(props.userAdd, async (newValue, oldValue) => {
+            if (props.userAdd) {
+                let object = {};
+                // object.text = props.userAdd.value.get('text');
+                props.userAdd.value.forEach(function (value, key) {
+                    object[key] = value;
+                });
+                if (object.file_id) {
+                    object.file = { 
+                        id: object.id, 
+                        type: object.type, 
+                        size: object.size
+                    }
+                }
+                messages.value.push(object);
+            }
+        }, { immediate: false });
+
         const listen = () => {
-            window.Echo.private('chat')
-                .listen('MessageSent', (e) => {
+            window.Echo.channel('laravel_database_chatroom')
+                .listen('MessagePosted', (e) => {
+                    console.log('thai listen ndsadj');
                     if (
                         (e.user.to == parseInt(getUserInfo()) && e.user.from == userTo.value)
                         || (e.user.to == userTo.value && e.user.from == parseInt(getUserInfo()))
                     ) {
                         messages.value.push(e.message);
                         scroll();
-                    }
+                    }   
                     scroll();
                 });
         }
@@ -116,6 +145,7 @@ export default {
 .icon-file-right p {
     margin: 0;
 }
+
 .icon-file-left {
     text-align: left;
     display: flex;
@@ -125,9 +155,10 @@ export default {
 .icon-file-left p {
     margin: 0;
 }
+
 .messages {
     background-color: white;
-    width: 96.5%; 
+    width: 96.5%;
     padding-bottom: 1%;
     padding-left: 4%;
     font-size: 18px;
@@ -184,8 +215,10 @@ export default {
     border: 1px solid #ccc;
     border-radius: 20px 20px 0px 20px;
 }
+
 .auto-break {
-    word-wrap: break-word; /* Cho phép từ bị cắt ngang nếu chúng dài quá */
+    word-wrap: break-word;
+    /* Cho phép từ bị cắt ngang nếu chúng dài quá */
     word-break: break-all;
     margin: 0;
     padding-bottom: 6px;
