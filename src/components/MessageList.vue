@@ -115,7 +115,6 @@ export default {
                     console.log('thai listen ndsadj');
                     if (
                         (e.user.to == parseInt(getUserInfo()) && e.user.from == userTo.value)
-                        || (e.user.to == userTo.value && e.user.from == parseInt(getUserInfo()))
                     ) {
                         messages.value.push(e.message);
                         scroll();

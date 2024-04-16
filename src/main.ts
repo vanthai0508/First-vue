@@ -27,10 +27,8 @@ window.Pusher = Pusher;
 
 window.io = io
 window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: "http://localhost:6001",
-    // client: io,
-    transports: ['websocket'],
+    broadcaster: import.meta.env.VITE_BROAD_CASTER,
+    host: import.meta.env.VITE_HOST,
     auth: {
         headers: {
             Authorization: 'Bearer ' + getAccessToken(),
@@ -45,10 +43,4 @@ window.Echo = new Echo({
     
 });
 
-// const socket = io('http://localhost:6001');
-
-// // Sử dụng socket ở đây, ví dụ:
-// socket.on('connect', () => {
-//     console.log('Connected to socket.io server');
-// });
 app.mount('#app')
