@@ -109,19 +109,19 @@ export default {
             }
         }, { immediate: false });
 
-        const listen = () => {
-            window.Echo.channel('laravel_database_chatroom')
-                .listen('MessagePosted', (e) => {
-                    console.log('thai listen ndsadj');
-                    if (
-                        (e.user.to == parseInt(getUserInfo()) && e.user.from == userTo.value)
-                    ) {
-                        messages.value.push(e.message);
-                        scroll();
-                    }   
-                    scroll();
-                });
-        }
+        // const listen = () => {
+        //     window.Echo.channel('laravel_database_chatroom')
+        //         .listen('MessagePosted', (e) => {
+        //             console.log('thai listen');
+        //             if (
+        //                 (e.user.to == parseInt(getUserInfo()) && e.user.from == userTo.value)
+        //             ) {
+        //                 messages.value.push(e.message);
+        //                 scroll();
+        //             }   
+        //             scroll();
+        //         });
+        // }
 
         listen();
 

@@ -26,14 +26,14 @@ declare global {
 window.Pusher = Pusher;
 
 window.io = io
-window.Echo = new Echo({
-    broadcaster: import.meta.env.VITE_BROAD_CASTER,
-    host: import.meta.env.VITE_HOST,
-    auth: {
-        headers: {
-            Authorization: 'Bearer ' + getAccessToken(),
-        },
-    },
+// window.Echo = new Echo({
+//     broadcaster: import.meta.env.VITE_BROAD_CASTER,
+//     host: import.meta.env.VITE_HOST,
+//     auth: {
+//         headers: {
+//             Authorization: 'Bearer ' + getAccessToken(),
+//         },
+//     },
 
     // Pusher
     // authEndpoint : import.meta.env.VITE_AUTH_ENDPOINT,
@@ -41,6 +41,6 @@ window.Echo = new Echo({
     // cluster: import.meta.env.VITE_CLUSTER,
     // forceTLS: true,
     
-});
+// });
 
 app.mount('#app')

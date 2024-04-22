@@ -1,0 +1,5 @@
+{
+    "name": "my-first-project-vue",
+    "script": "npm",
+    "args": "run dev"
+}
